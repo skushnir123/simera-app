@@ -12,6 +12,7 @@ import {auth, firestore} from '../../../config/config'
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { FAB } from 'react-native-paper';
 import OverviewCard from './OverviewCard'
+import Constants from 'expo-constants';
 
 function Overview(props) {
     const { colors } = props.theme;
@@ -59,14 +60,11 @@ function Overview(props) {
                     <Button onPress={() => setOpen(false)}>Done</Button>
                   </Dialog.Actions>
                 </Dialog>
-              </Portal>
+              </Portal> 
               <OverviewCard borderColor='#FFFFFF' headlineText="Need help keeping track of games?" animationSource={scheduleAnim} subheading="Use our schedule to stay on track!" action={() => Actions.create_new_team()} buttonText="Go to Schedule"></OverviewCard>
               <OverviewCard borderColor='#2c3e50' headlineText="Going for the chip?" animationSource={anim} subheading="Update your fans live with realtime score updates!" action={() => Actions.create_new_team()} buttonText="Go to Realtime"></OverviewCard>
               <OverviewCard borderColor='#2c3e50' headlineText="Stat Geek?" animationSource={statsAnim} subheading="Use our advanced stats to get an edge!" action={() => Actions.create_new_team()} buttonText="Go to Schedule"></OverviewCard>
               <View style={{height: 50}}></View>
-
-
-
             </ScrollView>
             <FAB
               style={styles.fab}
@@ -78,7 +76,6 @@ function Overview(props) {
           )
         } else {
           return (
-            
             <View style={{flex:1, backgroundColor: '#FFFFFF'}}>
             <ScrollView contentContainerStyle={styles.view}>
             <Portal>
@@ -99,6 +96,9 @@ function Overview(props) {
                   </Dialog.Content>
                 </Dialog>
               </Portal>
+              {
+
+              }
               <OverviewCard first={true} borderColor='#FFFFFF' headlineText="Need help keeping track of games?" animationSource={scheduleAnim} subheading="Use our schedule to stay on track!" action={() => Actions.create_new_team()} buttonText="Go to Schedule"></OverviewCard>
               <OverviewCard first={false} borderColor='#2c3e50' headlineText="Going for the chip?" animationSource={anim} subheading="Update your fans live with realtime score updates!" action={() => Actions.create_new_team()} buttonText="Go to Realtime"></OverviewCard>
               <OverviewCard first={false} borderColor='#2c3e50' headlineText="Stat Geek?" animationSource={statsAnim} subheading="Use our advanced stats to get an edge!" action={() => Actions.create_new_team()} buttonText="Go to Schedule"></OverviewCard>
@@ -113,7 +113,8 @@ function Overview(props) {
             </View>
           );
         }
-      }
+       
+     }
     }
   
     const styles = StyleSheet.create({

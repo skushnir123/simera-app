@@ -35,7 +35,7 @@ function CreateNewTeam(props) {
                 },
                 ]}
             >
-                {message}
+                {message} 
             </Banner>
             <TextInput
                 style={{backgroundColor: "#FFFFFF"}}

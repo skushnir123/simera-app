@@ -21,26 +21,11 @@ function OverviewCard(props) {
             paddingTop:40,
             alignItems: 'center',
             borderColor: '#2c3e50',
-            borderWidth: 13,
+            borderWidth: 5,
             borderTopColor: '#FFFFFF'
           }}>
-            <Headline style={{padding: 5, marginRight: 10, marginLeft:10}}>{props.headlineText}</Headline>
-            <Animation
-            ref={animation => {
-            this.animation = animation;
-            if (this.animation) {
-            this.animation.play();
-            }
-            }}
-            style={{
-            width: 200,
-            height: 200,
-            marginTop: -1,
-            }}
-            loop={true}
-            source={animationSource}
-        />
-        <Subheading style={{paddingLeft: 10, marginTop: -10, paddingBottom:15}}>{props.subheading}</Subheading>
+            <Headline style={{padding: 5}}>{props.headlineText}</Headline>
+        <Subheading style={{paddingBottom:15}}>{props.subheading}</Subheading>
         <Button contentStyle={{fontSize:30}} uppercase={false} mode="outlined" onPress={action}>
             {props.buttonText}
         </Button>
