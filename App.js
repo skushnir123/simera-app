@@ -21,6 +21,7 @@ const theme = {
   fonts: {
     ...DefaultTheme.fonts,
     welcomePage: 'VINCHAND',
+    winLoss: 'BILLBOLDH',
     regular: 'Roboto-Regular',
     light: 'Roboto-Light',
     medium: 'Roboto-Medium'
@@ -35,6 +36,7 @@ export default class App extends React.Component {
   async componentWillMount() {
     await Font.loadAsync({
       'VINCHAND': require('./assets/VINCHAND.ttf'),
+      'BILLBOLDH': require('./assets/BILLBOLDH.ttf'),
       'Roboto-Regular': require('./assets/Roboto/Roboto-Regular.ttf'),
       'Roboto-Light': require('./assets/Roboto/Roboto-Light.ttf'),
       'Roboto-Medium': require('./assets/Roboto/Roboto-Medium.ttf'),

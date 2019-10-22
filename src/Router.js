@@ -17,6 +17,12 @@ import CreateNewPractice from './components/main/CreateNewPractice';
 import PracticeDetail from './components/main/PracticeDetail';
 import EditPractice from './components/main/EditPractice';
 import CreateNewEvent from './components/main/CreateNewEvent';
+import GeneralEventDetail from './components/main/GeneralEventDetail';
+import EditGeneralEvent from './components/main/EditGeneralEvent';
+import Roster from './components/main/Roster';
+import More from './components/main/More';
+import Profile from './components/main/Profile';
+import SimeraLive from './components/main/SimeraLive';
 
 const RouterComponent = () => {
     return (
@@ -36,20 +42,27 @@ const RouterComponent = () => {
                         <Scene hideNavBar  key="create_new_team_loader" component={CreateNewTeamLoader} title="Create"></Scene>
                     </Scene>
                     <Scene key="schedule" title="Schedule">
-                        <Scene initial hideNavBar key="schedule_initial" component={Schedule} title="Schedule"></Scene>
+                        <Scene initial  key="schedule_initial" component={Schedule} title="Schedule"></Scene>
+                        <Scene  key="simera_live" component={SimeraLive} title="SimeraLive"></Scene>
                         <Scene  key="add_game" component={CreateNewGame} title="Create"></Scene>
                         <Scene  key="add_practice" component={CreateNewPractice} title="Create"></Scene>
                         <Scene  key="add_event" component={CreateNewEvent} title="Create"></Scene>
                         <Scene  key="event_detail" path="event_detail/:id" component={EventDetail} title="Details"></Scene>
                         <Scene  key="practice_detail" path="practice_detail/:id" component={PracticeDetail} title="Details"></Scene>
+                        <Scene  key="general_event_detail" path="general_event_detail/:id" component={GeneralEventDetail} title="Details"></Scene>
                         <Scene  key="edit_game" path="edit_game/:opponent" component={EditGameScreen} title="Edit"></Scene>
                         <Scene  key="edit_practice" path="edit_practice/:location" component={EditPractice} title="Edit"></Scene>
+                        <Scene  key="edit_general_event" path="edit_general_event/:location" component={EditGeneralEvent} title="Edit"></Scene>
                         <Scene hideNavBar  key="new_event_loader" component={NewEventLoader} title="Create"></Scene>
                     </Scene>
-                    
+                    <Scene key="roster" title="Roster">
+                        <Scene initial key="roster_initial" component={Roster} title="Roster"></Scene>
+                    </Scene>
+                    <Scene key="more" title="More">
+                        <Scene initial key="more_initial" component={More} title="More"></Scene>
+                        <Scene key="profile" component={Profile} title="Profile"></Scene>
+                    </Scene>
                 </Scene>
-                
-                
             </Scene>
         </Router>
     )

@@ -13,6 +13,7 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { FAB } from 'react-native-paper';
 import OverviewCard from './OverviewCard'
 import DateTimePicker from "react-native-modal-datetime-picker";
+import TimeWithoutSeconds from '../reusable/TimeWIthoutSeconds'
 
 
 function CreateNewGame(props) {
@@ -56,7 +57,7 @@ function CreateNewGame(props) {
                     ref={(ref) => chooseDateRef=ref}
                     style={{backgroundColor: "#FFFFFF"}}
                     label='Date/Time'
-                    value={date}
+                    value={TimeWithoutSeconds(date)}
                     onFocus={() => {
                     setDateTimePickerVisible(true)
                     chooseDateRef.blur()}}
@@ -87,18 +88,18 @@ function CreateNewGame(props) {
                     <Dialog.Title>Home/Away</Dialog.Title>
                     <Dialog.Content>
                         <Chip icon={iconHome} onPress={() => {
-                        setIconHome("check")
-                        setIconAway("add")
-                        setHomeAwayEnum(1)
-                        setHomeAway("Home")
-                        }}>Home
+                            setIconHome("check")
+                            setIconAway("add")
+                            setHomeAwayEnum(1)
+                            setHomeAway("Home")
+                            }}>Home
                         </Chip>
-                    <Chip style={{marginTop:8}} icon={iconAway} onPress={() => {
-                     setIconHome("add")
-                     setIconAway("check")
-                     setHomeAwayEnum(2)
-                     setHomeAway("Away")
-                    }}>Away</Chip>
+                        <Chip style={{marginTop:8}} icon={iconAway} onPress={() => {
+                        setIconHome("add")
+                        setIconAway("check")
+                        setHomeAwayEnum(2)
+                        setHomeAway("Away")
+                        }}>Away</Chip>
                     </Dialog.Content>
                     <Dialog.Actions>
                         <Button onPress={() => setChooseHomeAwayVis(false)}>Done</Button>
@@ -133,13 +134,16 @@ function CreateNewGame(props) {
                                 })
                                     firestore.collection("events").add({
                                         opponent: opponent,
+                                        teamName: docTeam.data().teamName,
                                         location: location,
                                         date: dateFormat,
                                         notes: notes,
                                         homeAway: homeAwayEnum,
                                         eventType: 1,
+                                        gameOver:false,
                                         teamId: doc.data().teams[0],
-                                        availability: members  
+                                        availability: members,
+                                        score: [0,0]
                                         }).then(function() {
                                             Actions.new_event_loader()
                                         })

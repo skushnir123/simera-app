@@ -13,18 +13,34 @@ function CreateNewTeam(props) {
     const [teamName, setTeamName] = React.useState("")
     const [teamPassword, setTeamPassword] = React.useState("")
     const [chooseSportVis, setChooseSportVis] = React.useState(false)
+    const [chooseAgeVis, setChooseAgeVis] = React.useState(false)
+    const [chooseGenderVis, setChooseGenderVis] = React.useState(false)
     const [sport, setSport] = React.useState("Basketball")
     const [sportEnum, setSportEnum] = React.useState(1)
+    const [ageEnum, setAgeEnum] = React.useState(1)
+    const [genderEnum, setGenderEnum] = React.useState(1)
+    const [age, setAge] = React.useState("6-10")
+    const [gender, setGender] = React.useState("Mixed")
+    const [iconMale, setIconMale] = React.useState("add")
+    const [iconFemale, setIconFemale] = React.useState("add")
+    const [iconMixed, setIconMixed] = React.useState("check")
+    const [iconFirstAge, setIconFirstAge] = React.useState("check")
+    const [iconSecondAge, setIconSecondAge] = React.useState("add")
+    const [iconThirdAge, setIconThirdAge] = React.useState("add")
     const [iconBasketball, setIconBasketball] = React.useState("check")
     const [iconFootball, setIconFootball] = React.useState("add")
     const [iconBaseball, setIconBaseball] = React.useState("add")
     const [iconSoccer, setIconSoccer] = React.useState("add")
+    const [iconVolleyball, setIconVolleyball] = React.useState("add")
+    const [iconHockey, setIconHockey] = React.useState("add")
     const [helperMessageVisible, setHelperMessageVisible] = React.useState(true)
     const [message, setMessage] = React.useState("The Team Passsword is used by team members to sign in and join the team.")
     const [passwordTaken, setPasswordTaken] = React.useState(false)
     var chooseSportRef = React.createRef()
+    var chooseAgeRef = React.createRef()
+    var chooseGenderRef = React.createRef()
       return (
-        <View style={styles.view}>
+        <View style={styles.view}>  
             <Banner
                 style={{backgroundColor: '#ecf0f1'}}
                 visible={helperMessageVisible}
@@ -59,6 +75,24 @@ function CreateNewTeam(props) {
                   setChooseSportVis(true)
                   chooseSportRef.blur()}}
             />
+            <TextInput
+                ref={(ref) => chooseAgeRef=ref}
+                style={{backgroundColor: "#FFFFFF"}}
+                label='Age Group'
+                value={age}
+                onFocus={() => {
+                  setChooseAgeVis(true)
+                  chooseAgeRef.blur()}}
+            />
+            <TextInput
+                ref={(ref) => chooseGenderRef=ref}
+                style={{backgroundColor: "#FFFFFF"}}
+                label='Gender'
+                value={gender}
+                onFocus={() => {
+                  setChooseGenderVis(true)
+                  chooseGenderRef.blur()}}
+            />
             <Portal>
             <Dialog
               visible={chooseSportVis}
@@ -70,6 +104,8 @@ function CreateNewTeam(props) {
                   setIconFootball("add")
                   setIconBaseball("add")
                   setIconSoccer("add")
+                  setIconHockey("add")
+                  setIconVolleyball("add")
                   setSportEnum(1)
                   setSport("Basketball")
                   }}>Basketball
@@ -79,6 +115,8 @@ function CreateNewTeam(props) {
                   setIconFootball("check")
                   setIconBaseball("add")
                   setIconSoccer("add")
+                  setIconHockey("add")
+                  setIconVolleyball("add")
                   setSportEnum(2)
                   setSport("Football")
               }}>Football</Chip>
@@ -87,6 +125,8 @@ function CreateNewTeam(props) {
                   setIconFootball("add")
                   setIconBaseball("check")
                   setIconSoccer("add")
+                  setIconHockey("add")
+                  setIconVolleyball("add")
                   setSportEnum(3)
                   setSport("Baseball")
               }}>Baseball
@@ -95,17 +135,110 @@ function CreateNewTeam(props) {
                   setIconBasketball("add")
                   setIconFootball("add")
                   setIconBaseball("add")
+                  setIconHockey("add")
+                  setIconVolleyball("add")
                   setIconSoccer("check")
                   setSportEnum(4)
                   setSport("Soccer")
               }}>Soccer
+              </Chip>
+              <Chip style={{marginTop:8}} icon={iconVolleyball} onPress={() => {
+                  setIconBasketball("add")
+                  setIconFootball("add")
+                  setIconBaseball("add")
+                  setIconHockey("add")
+                  setIconVolleyball("check")
+                  setIconSoccer("add")
+                  setSportEnum(5)
+                  setSport("Volleyball")
+              }}>Volleyball
+              </Chip>
+              <Chip style={{marginTop:8}} icon={iconHockey} onPress={() => {
+                  setIconBasketball("add")
+                  setIconFootball("add")
+                  setIconBaseball("add")
+                  setIconHockey("check")
+                  setIconVolleyball("add")
+                  setIconSoccer("add")
+                  setSportEnum(6)
+                  setSport("Hockey")
+              }}>Hockey
               </Chip>
               </Dialog.Content>
               <Dialog.Actions>
                 <Button onPress={() => setChooseSportVis(false)}>Done</Button>
               </Dialog.Actions>
             </Dialog>
+            <Dialog
+              visible={chooseAgeVis}
+              onDismiss={() => setChooseAgeVis(false)}>
+              <Dialog.Title>Choose Age Group</Dialog.Title>
+              <Dialog.Content>
+                <Chip icon={iconFirstAge} onPress={() => {
+                  setIconFirstAge("check")
+                  setIconSecondAge("add")
+                  setIconThirdAge("add")
+                  setAgeEnum(1)
+                  setAge("6-10")
+                  }}>6-10
+                </Chip>
+                <Chip style={{marginTop:8}} icon={iconSecondAge} onPress={() => {
+                  setIconFirstAge("add")
+                  setIconSecondAge("check")
+                  setIconThirdAge("add")
+                  setAgeEnum(2)
+                  setAge("10-14")
+                  }}>10-14
+                </Chip>
+                <Chip style={{marginTop:8}} icon={iconThirdAge} onPress={() => {
+                  setIconFirstAge("add")
+                  setIconSecondAge("add")
+                  setIconThirdAge("check")
+                  setAgeEnum(1)
+                  setAge("14-18")
+                  }}>14-18
+                </Chip>
+              </Dialog.Content>
+              <Dialog.Actions>
+                <Button onPress={() => setChooseAgeVis(false)}>Done</Button>
+              </Dialog.Actions>
+            </Dialog>
+            <Dialog
+              visible={chooseGenderVis}
+              onDismiss={() => setChooseGenderVis(false)}>
+              <Dialog.Title>Gender</Dialog.Title>
+              <Dialog.Content>
+                <Chip icon={iconMale} onPress={() => {
+                  setIconMale("check")
+                  setIconFemale("add")
+                  setIconMixed("add")
+                  setGenderEnum(1)
+                  setGender("Male")
+                  }}>Male
+                </Chip>
+                <Chip style={{marginTop:8}}  icon={iconFemale} onPress={() => {
+                  setIconMale("add")
+                  setIconFemale("check")
+                  setIconMixed("add")
+                  setGenderEnum(2)
+                  setGender("Female")
+                  }}>Female
+                </Chip>
+                <Chip style={{marginTop:8}}  icon={iconMixed} onPress={() => {
+                  setIconMale("add")
+                  setIconFemale("add")
+                  setIconMixed("check")
+                  setGenderEnum(3)
+                  setGender("Mixed")
+                  }}>Mixed
+                </Chip>
+              </Dialog.Content>
+              <Dialog.Actions>
+                <Button onPress={() => setChooseGenderVis(false)}>Done</Button>
+              </Dialog.Actions>
+            </Dialog>
           </Portal>
+          
           <Button  
             mode="contained" 
             onPress={() => {{
@@ -120,7 +253,9 @@ function CreateNewTeam(props) {
                         teamPassword: teamPassword,
                         sport: sportEnum,
                         teamMembers: [auth.currentUser.uid],
-                        record: "0-0-0"
+                        record: "0-0-0",
+                        ageGroup: ageEnum,
+                        gender:genderEnum
                       }).then(function(docRef) {
                         userRef.get().then(function(doc) {
                           if (doc.exists) {

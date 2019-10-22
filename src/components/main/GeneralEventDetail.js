@@ -8,7 +8,7 @@ import {firestore, auth} from '../../../config/config'
 import { useCollection } from 'react-firebase-hooks/firestore';
 import TimeWithoutSeconds from '../reusable/TimeWIthoutSeconds'
 
-function PracticeDetail(props) {
+function GeneralEventDetail(props) {
     const { colors } = props.theme;
     const {fonts} = props.theme
     const [availability, setAvailability] = React.useState("Loading")
@@ -20,6 +20,7 @@ function PracticeDetail(props) {
     const [iconNotGoing, setIconNotGoing] = React.useState("add")
     const [availabilityEnum, setAvailabilityEnum] = React.useState(2)
     const [eventDetailsExpanded, setEventDetailsExpanded] = React.useState(false)
+    const [deleteLoading, setDeleteLoading] = React.useState(false)
     const [eventsValue, eventsLoading, eventsError] = useCollection(
         firestore.collection('events').doc(props.id),
         {
@@ -35,7 +36,7 @@ function PracticeDetail(props) {
     
     
 
-    if (eventsLoading || teamsLoading) {
+    if (eventsLoading || teamsLoading || deleteLoading) {
         return (
             <View style={{backgroundColor: "#FFFFFF", justifyContent: "center", flex:1}}>
               <ActivityIndicator animating={true} color={colors.primary} />
@@ -48,7 +49,7 @@ function PracticeDetail(props) {
         return (
             <View style={{backgroundColor:'#FFFFFF', flex:1}}>
                 <ScrollView contentContainerStyle={styles.view}>
-                    <Headline style={{padding: 5, alignSelf: 'center'}}>{"Practice"}</Headline>
+                    <Headline style={{padding: 5, alignSelf: 'center'}}>{eventsValue.data().eventTitle}</Headline>
                     <Paragraph style={{paddingBottom:0, alignSelf: 'center'}}> {new Date(eventsValue.data().date.seconds*1000).toDateString()}</Paragraph>
                     <TextInput
                         ref={(ref) => availabilityRef=ref}
@@ -95,7 +96,7 @@ function PracticeDetail(props) {
                         }
                         </List.Accordion>
                     </List.Section>
-                    <Button contentStyle={{fontSize:30}} uppercase={true} mode="outlined" onPress={() => Actions.push(sceneKey="edit_practice" , props={location: eventsValue.data().location, id: eventsValue.id,  date: eventsValue.data().date, endDate: eventsValue.data().endDate, notes: eventsValue.data().notes})}>
+                    <Button contentStyle={{fontSize:30}} uppercase={true} mode="outlined" onPress={() => Actions.push(sceneKey="edit_general_event" , props={location: eventsValue.data().location, eventTitle: eventsValue.data().eventTitle, id: eventsValue.id,  date: eventsValue.data().date, endDate: eventsValue.data().endDate, notes: eventsValue.data().notes})}>
                         Edit
                     </Button>
                     <View style={{height:30}}></View>
@@ -182,4 +183,4 @@ const styles = StyleSheet.create({
     }
   });
 
-export default withTheme(PracticeDetail)
+export default withTheme(GeneralEventDetail)

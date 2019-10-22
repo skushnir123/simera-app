@@ -13,18 +13,20 @@ function Signup(props) {
     const [firstName, setFirstName] = React.useState("")
     const [lastName, setLastName] = React.useState("")
     const [email, setEmail] = React.useState("")
+    const [phone, setPhone] = React.useState("")
     const [password, setPassword] = React.useState("")
     const [errorVisibile, setErrorVisibile] = React.useState(false)
     const [errorMessage, setErrorMessage] = React.useState("")
     const [iconPlayer, setIconPlayer] = React.useState("check")
     const [iconCoach, setIconCoach] = React.useState("add")
+    const [iconManager, setIconManager] = React.useState("add")
     const [iconFan, setIconFan] = React.useState("add")
     const [role, setRole] = React.useState(1)
 
 
 
       return (
-        <ScrollView  style={styles.view}>
+        <ScrollView style={styles.view}>
             <Banner
                 visible={errorVisibile}
                 actions={[
@@ -32,7 +34,6 @@ function Signup(props) {
                     label: 'Got It',
                     onPress: () => setErrorVisibile(false),
                 },
-                
                 ]}
             >
                 {errorMessage}
@@ -57,6 +58,12 @@ function Signup(props) {
             />
             <TextInput
                 style={{backgroundColor: "#FFFFFF"}}
+                label='Phone Number (optional)'
+                value={phone}
+                onChangeText={text => setEmail(text)}
+            />
+            <TextInput
+                style={{backgroundColor: "#FFFFFF"}}
                 label='Password'
                 secureTextEntry
                 value={password}
@@ -75,11 +82,18 @@ function Signup(props) {
                 setIconCoach("check")
                 setRole(2)
             }}>Coach</Chip>
+            <Chip style={{backgroundColor: "#FFFFFF"}} icon={iconManager} onPress={() => {
+                setIconPlayer("add")
+                setIconFan("add")
+                setIconCoach("add")
+                setIconManager("check")
+                setRole(3)
+            }}>Manager</Chip>
             <Chip style={{backgroundColor: "#FFFFFF"}} icon={iconFan} onPress={() => {
                 setIconPlayer("add")
                 setIconFan("check")
                 setIconCoach("add")
-                setRole(3)
+                setRole(4)
             }}>Fan</Chip>
 
           <Button  

@@ -16,7 +16,6 @@ function Welcome(props) {
   
   auth.onAuthStateChanged(function(user) {
     if (user) {
-      console.log("sdf")
       Actions.main()
     } else {
       // No user is signed in.

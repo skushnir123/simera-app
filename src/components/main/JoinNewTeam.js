@@ -43,21 +43,21 @@ function JoinNewTeam(props) {
               firestore.collection("teams").where("teamPassword", "==", teamPassword)
               .get()
               .then(function(querySnapshot) {
-                  querySnapshot.forEach(function(doc) {
+                  querySnapshot.forEach(function(teamDoc) {
                       // doc.data() is never undefined for query doc snapshots
                       
-                      if (!doc.data().members.includes(auth.currentUser.uid)) {
-                      var localMembers = doc.data().members
+                      if (!teamDoc.data().members.includes(auth.currentUser.uid)) {
+                      var localMembers = teamDoc.data().members
                       localMembers.push(auth.currentUser.uid)
                       
-                      return firestore.collection("teams").doc(doc.id).update({
+                      return firestore.collection("teams").doc(teamDoc.id).update({
                         members: localMembers
                     }).then(function() {
                         userRef.get().then(function(doc) {
                             if (doc.exists) {
                               if (doc.data().teams) {
                                 var localTeams = doc.data().teams
-                                localTeams.unshift(doc.id)
+                                localTeams.unshift(teamDoc.id)
                                 return userRef.update({
                                   teams: localTeams
                                 }).then(function() {
@@ -65,7 +65,7 @@ function JoinNewTeam(props) {
                                 })
                               } else {
                                 return userRef.update({
-                                  teams: [doc.id]
+                                  teams: [teamDoc.id]
                                 }).then(function() {
                                   Actions.create_new_team_loader()
                                 })

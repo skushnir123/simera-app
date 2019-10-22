@@ -13,10 +13,9 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { FAB } from 'react-native-paper';
 import OverviewCard from './OverviewCard'
 import DateTimePicker from "react-native-modal-datetime-picker";
-import TimeWithoutSeconds from '../reusable/TimeWIthoutSeconds'
 
-function CreateNewEvent(props) {
-    const [eventTitle, setEventTitle] = React.useState("")
+
+function EditGeneralEvent(props) {
     const { colors } = props.theme;
     const {fonts} = props.theme
     const [dateTimePickerVisible, setDateTimePickerVisible] = React.useState(false)
@@ -24,15 +23,16 @@ function CreateNewEvent(props) {
     const [chooseHomeAwayVis, setChooseHomeAwayVis] = React.useState(false)
     var chooseDateRef = React.createRef()
     var chooseEndDateRef = React.createRef()
-    const [date, setDate] = React.useState("")
-    const [endTime, setEndTime] = React.useState("")
-    const [location, setLocation] = React.useState("")
-    const [notes, setNotes] = React.useState("")
-    const [dateFormat, setDateFormat] = React.useState(new Date())
-    const [endTimeFormat, setEndTimeFormat] = React.useState(new Date())
+    const [date, setDate] = React.useState(new Date(props.date.seconds*1000).toLocaleString())
+    const [endDate, setEndDate] = React.useState(new Date(props.endDate.seconds*1000).toLocaleTimeString())
+    const [location, setLocation] = React.useState(props.location)
+    const [eventTitle, setEventTitle] = React.useState(props.eventTitle)
+    const [notes, setNotes] = React.useState(props.notes)
+    const [dateFormat, setDateFormat] = React.useState(new Date(props.date.seconds*1000))
+    const [endDateFormat, setEndDateFormat] = React.useState(new Date(props.endDate.seconds*1000))
     const [pageLoading, setPageLoading] = React.useState(false)
 
-
+    {console.log(props.homeAway)}
 
     if (pageLoading) {
         return (
@@ -55,7 +55,7 @@ function CreateNewEvent(props) {
                     ref={(ref) => chooseDateRef=ref}
                     style={{backgroundColor: "#FFFFFF"}}
                     label='Beginning Date/Time'
-                    value={TimeWithoutSeconds(date)}
+                    value={date}
                     onFocus={() => {
                     setDateTimePickerVisible(true)
                     chooseDateRef.blur()}}
@@ -64,8 +64,7 @@ function CreateNewEvent(props) {
                     mode={"datetime"}
                     isVisible={dateTimePickerVisible}
                     onConfirm={(date) => {
-                        date.setSeconds(0)
-                        setDate(date.toLocaleString())
+                        setDate(date.toDateString())
                         setDateTimePickerVisible(false)
                         setDateFormat(date)
                     }}
@@ -75,7 +74,7 @@ function CreateNewEvent(props) {
                     ref={(ref) => chooseEndDateRef=ref}
                     style={{backgroundColor: "#FFFFFF"}}
                     label='End Time'
-                    value={endTime}
+                    value={endDate}
                     onFocus={() => {
                     setEndDateTimePickerVisible(true)
                     chooseEndDateRef.blur()}}
@@ -84,10 +83,9 @@ function CreateNewEvent(props) {
                     mode={"time"}
                     isVisible={endDateTimePickerVisible}
                     onConfirm={(date) => {
-                        console.log(date.toLocaleTimeString())
-                        setEndTime(date.toLocaleTimeString())
+                        setEndDate(date.toLocaleTimeString())
                         setEndDateTimePickerVisible(false)
-                        setEndTimeFormat(date)
+                        setEndDateFormat(date)
                     }}
                     onCancel={() => setEndDateTimePickerVisible(false)}
                 />
@@ -98,7 +96,7 @@ function CreateNewEvent(props) {
                     onChangeText={text => setLocation(text)}
                 />
                 <TextInput
-                    multiline={true}
+                    multiline={true} 
                     style={{backgroundColor: "#FFFFFF"}}
                     label='Notes'
                     value={notes}
@@ -109,40 +107,28 @@ function CreateNewEvent(props) {
                     onPress={() => {{
                         setPageLoading(true)
 
-                        if (eventTitle!=="" && date !=="") {
-                            const userRef = firestore.collection("users").doc(auth.currentUser.uid);
-                            userRef.get().then(function(doc) {
-                            var members = {}
-                            var endTime = new Date(dateFormat.getFullYear(), dateFormat.getMonth(), dateFormat.getDay, endTimeFormat.getHours(), endTimeFormat.getMinutes(), endTimeFormat.getSeconds(), endTimeFormat.getMilliseconds())
-                            firestore.collection("teams").doc(doc.data().teams[0]).get().then(function(docTeam) {
-                                docTeam.data().members.forEach(function(member) {
-                                    members[member] = 2
-                                })
-                                    firestore.collection("events").add({
-                                        eventTitle: eventTitle,
-                                        location: location,
-                                        date: dateFormat,
-                                        endDate: endTimeFormat,
-                                        notes: notes,
-                                        eventType: 3,
-                                        teamId: doc.data().teams[0],
-                                        availability: members
-                                        }).then(function() {
-                                            Actions.new_event_loader()
-                                        })
-                            })
+                        if ( date !=="") {
+                            const eventRef = firestore.collection("events").doc(props.id);
+                            return eventRef.update({
+                                eventTitle: eventTitle,
+                                location: location,
+                                date: dateFormat,
+                                endDate: endDateFormat,
+                                notes: notes
+                            }).then(function() {
+                                Actions.pop()
                             })
                         } else {
                             setPageLoading(false)
-                            console.log("sdf")
-                        }
+                            
+                        } 
                     }}}
                 >
-                    Add Event
+                    Edit Event
                 </Button>
             </ScrollView>
         </View>
     )
 }
 
-export default withTheme(CreateNewEvent)
+export default withTheme(EditGeneralEvent)

@@ -13,7 +13,7 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { FAB } from 'react-native-paper';
 import OverviewCard from './OverviewCard'
 import DateTimePicker from "react-native-modal-datetime-picker";
-
+import TimeWithoutSeconds from '../reusable/TimeWIthoutSeconds'
 
 function CreateNewPractice(props) {
     const [opponent, setOpponent] = React.useState("")
@@ -49,7 +49,7 @@ function CreateNewPractice(props) {
                     ref={(ref) => chooseDateRef=ref}
                     style={{backgroundColor: "#FFFFFF"}}
                     label='Beginning Date/Time'
-                    value={date}
+                    value={TimeWithoutSeconds(date)}
                     onFocus={() => {
                     setDateTimePickerVisible(true)
                     chooseDateRef.blur()}}
@@ -69,7 +69,7 @@ function CreateNewPractice(props) {
                     ref={(ref) => chooseEndDateRef=ref}
                     style={{backgroundColor: "#FFFFFF"}}
                     label='End Time'
-                    value={endTime}
+                    value={TimeWithoutSeconds(endTime)}
                     onFocus={() => {
                     setEndDateTimePickerVisible(true)
                     chooseEndDateRef.blur()}}
