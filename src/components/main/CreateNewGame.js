@@ -33,6 +33,53 @@ function CreateNewGame(props) {
     const [notes, setNotes] = React.useState("")
     const [dateFormat, setDateFormat] = React.useState(new Date())
     const [pageLoading, setPageLoading] = React.useState(false)
+    const basketballStats = {
+        0:-1,
+        1:-1,
+        2:-1,
+        3:-1,
+        4:-1,
+        5:-1,
+        6:-1,
+        7:-1,
+        8:-1
+    }
+
+    const footballStats = {
+        0:-1,
+        1:-1,
+        2:-1,
+        3:-1,
+        4:-1,
+        5:-1,
+        6: -1
+    }
+    const soccerStats = {
+        0: -1,
+        1: -1,
+        2: -1
+    }
+    const baseballStats = {
+        0:-1,
+        1:-1,
+        2:-1,
+        3:-1,
+        4:-1,
+        5: -1
+    }
+    const hockeyStats = {
+        0:-1,
+        1:-1,
+        2:-1,
+        3:-1,
+        4:-1
+    }
+    const volleyballStats = {
+        0:-1,
+        1:-1,
+        2:-1
+    }
+
 
 
 
@@ -128,9 +175,24 @@ function CreateNewGame(props) {
                             const userRef = firestore.collection("users").doc(auth.currentUser.uid);
                             userRef.get().then(function(doc) {
                             var members = {}
+                            var gameStats = {}
+
                             firestore.collection("teams").doc(doc.data().teams[0]).get().then(function(docTeam) {
                                 docTeam.data().members.forEach(function(member) {
                                     members[member] = 2
+                                    if (docTeam.data().sport===1) {
+                                        gameStats[member] = basketballStats
+                                    } else if (docTeam.data().sport===2) {
+                                        gameStats[member] = footballStats
+                                    } if (docTeam.data().sport===3) {
+                                        gameStats[member] = baseballStats
+                                    } if (docTeam.data().sport===4) {
+                                        gameStats[member] = soccerStats
+                                    } if (docTeam.data().sport===5) {
+                                        gameStats[member] = volleyballStats
+                                    } if (docTeam.data().sport===6) {
+                                        gameStats[member] = hockeyStats
+                                    }
                                 })
                                     firestore.collection("events").add({
                                         opponent: opponent,
@@ -143,6 +205,7 @@ function CreateNewGame(props) {
                                         gameOver:false,
                                         teamId: doc.data().teams[0],
                                         availability: members,
+                                        gameStats: gameStats,
                                         score: [0,0]
                                         }).then(function() {
                                             Actions.new_event_loader()

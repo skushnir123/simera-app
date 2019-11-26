@@ -41,6 +41,10 @@ function OverviewCard(props) {
 
             {((new Date() > (new Date(props.gameTime+(3600*3*1000)))) && (JSON.stringify(props.score) === JSON.stringify([0,0]))) || new Date() > props.gameTime && (new Date() < (props.gameTime + (3600*3*1000)))  ?
             (<View></View>):
+            (new Date() > ((props.gameTime + (3600*3*1000)))) ?
+            (<Button contentStyle={{fontSize:30}} uppercase={false} mode="outlined" onPress={action}>
+            Score/Details
+            </Button>) :
             <Button contentStyle={{fontSize:30}} uppercase={false} mode="outlined" onPress={action}>
                 {props.buttonText}
             </Button>

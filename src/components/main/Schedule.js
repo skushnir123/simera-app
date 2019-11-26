@@ -33,7 +33,7 @@ function Schedule(props) {
             snapshotListenOptions: { includeMetadataChanges: true },
         })
 
-      if (loading) {
+      if (loading || pageLoading || eventsLoading) {
         return (  
           <View style={{backgroundColor: "#FFFFFF", justifyContent: "center", flex:1}}>
             <ActivityIndicator animating={true} color={colors.primary} />
@@ -41,24 +41,10 @@ function Schedule(props) {
         )
       }
 
-      if (pageLoading) {
-        return (
-            <View style={{backgroundColor: "#FFFFFF", justifyContent: "center", flex:1}}>
-                <ActivityIndicator animating={true} color={colors.primary} />
-            </View>
-        )
-    }
 
       if (value) {
 
         if (value.data().teams) {
-            if (eventsLoading) {
-                return (
-                <View style={{backgroundColor: "#FFFFFF", justifyContent: "center", flex:1}}>
-                    <ActivityIndicator animating={true} color={colors.primary} />
-                </View> 
-                )
-            }
 
             if (eventsValue) {
 
@@ -70,8 +56,6 @@ function Schedule(props) {
                         {
                           eventsValue.docs.map(event => 
                             {
-                              console.log(new Date().toLocaleString())
-                              console.log(new Date(event.data().date.seconds*1000).toLocaleString())
                               if (event.data().teamId===value.data().teams[0]) {
                                 if (event.data().eventType===1) {
                                   if (new Date() > new Date(event.data().date.seconds*1000) && (new Date() < new Date(event.data().date.seconds*1000 + (3600*3*1000))) && event.data().gameOver===false) {
@@ -238,12 +222,12 @@ function Schedule(props) {
                 <ScrollView contentContainerStyle={{alignItems: 'center', marginTop:48}}>
                     <Headline>Haven't joined a team yet...</Headline>
                     <Button style={{marginTop:13}} uppercase={false} mode="outlined" onPress={() => {setOpenOne(false) 
-                      Actions.join_new_team()
+                      Actions.push(sceneKey="join_new_team" , props={role: value.data().role})
                       }}>
                       Join a new team
                     </Button>
                     <Button style={{marginTop:13}} contentStyle={{fontSize:30}} uppercase={false} mode="outlined" onPress={() => {setOpenOne(false)
-                       Actions.create_new_team()}}>
+                       Actions.push(sceneKey="create_new_team" , props={role: value.data().role})}}>
                       Create a new team 
                     </Button>
                 </ScrollView>

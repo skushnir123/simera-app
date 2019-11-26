@@ -23,6 +23,11 @@ import Roster from './components/main/Roster';
 import More from './components/main/More';
 import Profile from './components/main/Profile';
 import SimeraLive from './components/main/SimeraLive';
+import Stats from './components/main/Stats';
+import GameStats from './components/main/GameStats';
+import IndividualGameStats from './components/main/IndividualGameStats';
+import EditIndividualStats from './components/main/EditIndividualStats';
+import SignupNext from './components/auth/SignupNext';
 
 const RouterComponent = () => {
     return (
@@ -32,6 +37,7 @@ const RouterComponent = () => {
                     <Scene hideNavBar key="welcome" component={Welcome} title="Login"></Scene>
                     <Scene key="login" component={Login} title="Login"></Scene>
                     <Scene key="signup" component={Signup} title="Signup"></Scene>
+                    <Scene key="signup_next" component={SignupNext} title="Signup"></Scene>
                     <Scene  hideNavBar key="signupLoader" component={SignupLoader} title="Signup"></Scene>
                 </Scene>
                 <Scene activeTintColor={"#16a085"} tabs={true} key="main" >
@@ -57,6 +63,12 @@ const RouterComponent = () => {
                     </Scene>
                     <Scene key="roster" title="Roster">
                         <Scene initial key="roster_initial" component={Roster} title="Roster"></Scene>
+                    </Scene>
+                    <Scene key="stats" title="Stats">
+                        <Scene initial key="stats" component={Stats} title="Stats"></Scene>
+                        <Scene key="stats_games" component={GameStats} title="Stats"></Scene>
+                        <Scene key="individual_stats" component={IndividualGameStats} title="Stats"></Scene>
+                        <Scene key="edit_individual_stats" component={EditIndividualStats} title="Stats"></Scene>
                     </Scene>
                     <Scene key="more" title="More">
                         <Scene initial key="more_initial" component={More} title="More"></Scene>

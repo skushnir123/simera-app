@@ -17,7 +17,7 @@ function SignupLoader(props) {
         <Loader headerText={"Creating User..."}></Loader>
       </View>
     );
-  } 
+  }  
 
   const styles = StyleSheet.create({
     container: {

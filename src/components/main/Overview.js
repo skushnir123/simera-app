@@ -61,9 +61,9 @@ function Overview(props) {
                   </Dialog.Actions>
                 </Dialog>
               </Portal> 
-              <OverviewCard borderColor='#FFFFFF' headlineText="Need help keeping track of games?" animationSource={scheduleAnim} subheading="Use our schedule to stay on track!" action={() => Actions.create_new_team()} buttonText="Go to Schedule"></OverviewCard>
-              <OverviewCard borderColor='#2c3e50' headlineText="Going for the chip?" animationSource={anim} subheading="Update your fans live with realtime score updates!" action={() => Actions.create_new_team()} buttonText="Go to Realtime"></OverviewCard>
-              <OverviewCard borderColor='#2c3e50' headlineText="Stat Geek?" animationSource={statsAnim} subheading="Use our advanced stats to get an edge!" action={() => Actions.create_new_team()} buttonText="Go to Schedule"></OverviewCard>
+              <OverviewCard borderColor='#FFFFFF' headlineText="Need help keeping track of games?" animationSource={scheduleAnim} subheading="Use our schedule to stay on track!" action={() => Actions.schedule()} buttonText="Go to Schedule"></OverviewCard>
+              <OverviewCard borderColor='#2c3e50' headlineText="Going for the chip?" animationSource={anim} subheading="Update your fans live with realtime score updates!" action={() => Actions.schedule()} buttonText="Go to Realtime"></OverviewCard>
+              <OverviewCard borderColor='#2c3e50' headlineText="Stat Geek?" animationSource={statsAnim} subheading="Use our advanced stats to get an edge!" action={() => Actions.stats()} buttonText="Go to Stats"></OverviewCard>
               <View style={{height: 50}}></View>
             </ScrollView>
             <FAB
@@ -85,12 +85,12 @@ function Overview(props) {
                   <Dialog.Title>Add new team</Dialog.Title>
                   <Dialog.Content>
                     <Button contentStyle={{fontSize:30}} uppercase={false} mode="outlined" onPress={() => {setOpenOne(false) 
-                      Actions.join_new_team()
+                      Actions.push(sceneKey="join_new_team" , props={role: value.data().role})
                       }}>
                       Join a new team
                     </Button>
                     <Button style={{marginTop:13}} contentStyle={{fontSize:30}} uppercase={false} mode="outlined" onPress={() => {setOpenOne(false)
-                       Actions.create_new_team()}}>
+                       Actions.push(sceneKey="create_new_team" , props={role: value.data().role})}}>
                       Create a new team 
                     </Button>
                   </Dialog.Content>
@@ -99,9 +99,9 @@ function Overview(props) {
               {
 
               }
-              <OverviewCard first={true} borderColor='#FFFFFF' headlineText="Need help keeping track of games?" animationSource={scheduleAnim} subheading="Use our schedule to stay on track!" action={() => Actions.create_new_team()} buttonText="Go to Schedule"></OverviewCard>
-              <OverviewCard first={false} borderColor='#2c3e50' headlineText="Going for the chip?" animationSource={anim} subheading="Update your fans live with realtime score updates!" action={() => Actions.create_new_team()} buttonText="Go to Realtime"></OverviewCard>
-              <OverviewCard first={false} borderColor='#2c3e50' headlineText="Stat Geek?" animationSource={statsAnim} subheading="Use our advanced stats to get an edge!" action={() => Actions.create_new_team()} buttonText="Go to Schedule"></OverviewCard>
+              <OverviewCard first={true} borderColor='#FFFFFF' headlineText="Need help keeping track of games?" animationSource={scheduleAnim} subheading="Use our schedule to stay on track!" action={() => Actions.schedule()} buttonText="Go to Schedule"></OverviewCard>
+              <OverviewCard first={false} borderColor='#2c3e50' headlineText="Going for the chip?" animationSource={anim} subheading="Update your fans live with realtime score updates!" action={() => Actions.schedule()} buttonText="Go to Realtime"></OverviewCard>
+              <OverviewCard first={false} borderColor='#2c3e50' headlineText="Stat Geek?" animationSource={statsAnim} subheading="Use our advanced stats to get an edge!" action={() => Actions.stats()} buttonText="Go to Stats"></OverviewCard>
               <View style={{height: 50}}></View>
             </ScrollView>
             <FAB

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {View} from 'react-native'
 import { StyleSheet, Screen} from 'react-native';
-import { Button ,Text, Headline, Title, Card, IconButton, Avatar, TextInput, Banner, Image} from 'react-native-paper';
+import { Button ,Text, ActivityIndicator, Headline, Title, Card, IconButton, Avatar, TextInput, Banner, Image} from 'react-native-paper';
 import { withTheme } from 'react-native-paper';
 import LottieView from 'lottie-react-native';
 import {auth} from '../../../config/config'
@@ -14,6 +14,7 @@ function Login(props) {
     const [password, setPassword] = React.useState("")
     const [errorVisibile, setErrorVisibile] = React.useState(false)
     const [errorMessage, setErrorMessage] = React.useState("")
+    const [loading, setLoading] = React.useState(false)
     auth.signOut()
     auth.onAuthStateChanged(function(user) {
       
@@ -26,6 +27,16 @@ function Login(props) {
         // ...
       }
     });
+
+
+
+    if (loading) {
+      return (
+        <View style={{backgroundColor: "#FFFFFF", justifyContent: "center", flex:1}}>
+            <ActivityIndicator animating={true} color={colors.primary} />
+        </View> 
+        )
+    }
 
       return (
         <View style={styles.view}>
@@ -58,6 +69,7 @@ function Login(props) {
           <Button  
             mode="contained" 
             onPress={() => {{
+              setLoading(true)
               auth.signInWithEmailAndPassword(email, password).catch(function(error) {
                 // Handle Errors here.
 
@@ -73,7 +85,7 @@ function Login(props) {
         </View>
       );
     }
-  
+   
     const styles = StyleSheet.create({
       view: {
         backgroundColor: '#FFFFFF',

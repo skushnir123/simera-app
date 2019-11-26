@@ -27,6 +27,7 @@ function CreateNewTeam(props) {
     const [iconFirstAge, setIconFirstAge] = React.useState("check")
     const [iconSecondAge, setIconSecondAge] = React.useState("add")
     const [iconThirdAge, setIconThirdAge] = React.useState("add")
+    const [iconFourthAge, setIconFourthAge] = React.useState("add")
     const [iconBasketball, setIconBasketball] = React.useState("check")
     const [iconFootball, setIconFootball] = React.useState("add")
     const [iconBaseball, setIconBaseball] = React.useState("add")
@@ -178,6 +179,7 @@ function CreateNewTeam(props) {
                   setIconFirstAge("check")
                   setIconSecondAge("add")
                   setIconThirdAge("add")
+                  setIconFourthAge("add")
                   setAgeEnum(1)
                   setAge("6-10")
                   }}>6-10
@@ -186,6 +188,7 @@ function CreateNewTeam(props) {
                   setIconFirstAge("add")
                   setIconSecondAge("check")
                   setIconThirdAge("add")
+                  setIconFourthAge("add")
                   setAgeEnum(2)
                   setAge("10-14")
                   }}>10-14
@@ -194,9 +197,19 @@ function CreateNewTeam(props) {
                   setIconFirstAge("add")
                   setIconSecondAge("add")
                   setIconThirdAge("check")
-                  setAgeEnum(1)
+                  setIconFourthAge("add")
+                  setAgeEnum(3)
                   setAge("14-18")
                   }}>14-18
+                </Chip>
+                <Chip style={{marginTop:8}} icon={iconFourthAge} onPress={() => {
+                  setIconFirstAge("add")
+                  setIconSecondAge("add")
+                  setIconThirdAge("add")
+                  setIconFourthAge("check")
+                  setAgeEnum(4)
+                  setAge("18+")
+                  }}>18+
                 </Chip>
               </Dialog.Content>
               <Dialog.Actions>
@@ -248,11 +261,15 @@ function CreateNewTeam(props) {
                 .then(function(querySnapshot) {
                     if (querySnapshot.empty) {
                       const userRef = firestore.collection('users').doc(auth.currentUser.uid)
+                      var members = []
+                      if (props.role===1) {
+                        members = [auth.currentUser.uid]
+                      }
                       firestore.collection("teams").add({
                         teamName: teamName,
                         teamPassword: teamPassword,
                         sport: sportEnum,
-                        teamMembers: [auth.currentUser.uid],
+                        members: members,
                         record: "0-0-0",
                         ageGroup: ageEnum,
                         gender:genderEnum

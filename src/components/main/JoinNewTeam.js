@@ -48,8 +48,9 @@ function JoinNewTeam(props) {
                       
                       if (!teamDoc.data().members.includes(auth.currentUser.uid)) {
                       var localMembers = teamDoc.data().members
+                      if (props.role ===1) {
                       localMembers.push(auth.currentUser.uid)
-                      
+                      }
                       return firestore.collection("teams").doc(teamDoc.id).update({
                         members: localMembers
                     }).then(function() {

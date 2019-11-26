@@ -124,9 +124,9 @@ function More(props) {
             Actions.push(sceneKey="profile" , props={email:value.data().email, phone: value.data().phone})
             }}>Edit profile</Text>
             <Text accessibilityRole='button' style={{margin:10,marginTop:29, color: '#16a085', fontSize:15, fontWeight: "bold"}} onPress={() => {
-            Actions.create_new_team()}}>Create New Team</Text>
+            Actions.push(sceneKey="create_new_team" , props={role: value.data().role})}}>Create New Team</Text>
             <Text accessibilityRole='button' style={{margin:10, color: '#16a085', fontSize:15, fontWeight: "bold"}} onPress={() => {
-            Actions.join_new_team()}}>Join a New Team</Text>
+            Actions.push(sceneKey="join_new_team" , props={role: value.data().role})}}>Join a New Team</Text>
             <Text accessibilityRole='button' style={{margin:10, color: '#16a085', fontSize:15, fontWeight: "bold"}} onPress={() => {
             setHelperMessageVisible(true)}}>Leave current Team</Text>
             <Text accessibilityRole='button' style={{margin:10, color: '#16a085', fontSize:15, fontWeight: "bold"}} onPress={() => {

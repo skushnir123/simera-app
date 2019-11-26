@@ -16,17 +16,26 @@ function Signup(props) {
     const [phone, setPhone] = React.useState("")
     const [password, setPassword] = React.useState("")
     const [errorVisibile, setErrorVisibile] = React.useState(false)
-    const [errorMessage, setErrorMessage] = React.useState("")
-    const [iconPlayer, setIconPlayer] = React.useState("check")
-    const [iconCoach, setIconCoach] = React.useState("add")
-    const [iconManager, setIconManager] = React.useState("add")
-    const [iconFan, setIconFan] = React.useState("add")
-    const [role, setRole] = React.useState(1)
+    const [errorMessage, setErrorMessage] = React.useState("") 
 
+
+
+    auth.onAuthStateChanged(function(user) {
+      
+        if (user) {
+          // User is signed in.
+          () => Actions.signupLoader()
+          // ...
+        } else {
+          // User is signed out.
+          // ...
+        }
+      });
 
 
       return (
-        <ScrollView style={styles.view}>
+        <View style={{backgroundColor:'#FFFFFF', flex:1}}>
+        <ScrollView contentContainerStyle={styles.view}>
             <Banner
                 visible={errorVisibile}
                 actions={[
@@ -58,9 +67,10 @@ function Signup(props) {
             />
             <TextInput
                 style={{backgroundColor: "#FFFFFF"}}
+                keyboardType={"number-pad"}
                 label='Phone Number (optional)'
                 value={phone}
-                onChangeText={text => setEmail(text)}
+                onChangeText={text => setPhone(text)}
             />
             <TextInput
                 style={{backgroundColor: "#FFFFFF"}}
@@ -69,63 +79,25 @@ function Signup(props) {
                 value={password}
                 onChangeText={text => setPassword(text)}
             />
-            <Headline style={{margin:10}}>What is your role?</Headline>
-            <Chip style={{backgroundColor: "#FFFFFF"}} icon={iconPlayer} onPress={() => {
-                setIconPlayer("check")
-                setIconFan("add")
-                setIconCoach("add")
-                setRole(1)
-            }}>Player</Chip>
-            <Chip style={{backgroundColor: "#FFFFFF"}} icon={iconCoach} onPress={() => {
-                setIconPlayer("add")
-                setIconFan("add")
-                setIconCoach("check")
-                setRole(2)
-            }}>Coach</Chip>
-            <Chip style={{backgroundColor: "#FFFFFF"}} icon={iconManager} onPress={() => {
-                setIconPlayer("add")
-                setIconFan("add")
-                setIconCoach("add")
-                setIconManager("check")
-                setRole(3)
-            }}>Manager</Chip>
-            <Chip style={{backgroundColor: "#FFFFFF"}} icon={iconFan} onPress={() => {
-                setIconPlayer("add")
-                setIconFan("check")
-                setIconCoach("add")
-                setRole(4)
-            }}>Fan</Chip>
 
           <Button  
             mode="contained" 
             onPress={() => {{
-                auth.createUserWithEmailAndPassword(email, password).catch(function(error) {
-                    // Handle Errors here.
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    setErrorVisibile(true)
-                    setErrorMessage(errorMessage)
-                  }).then(function() {
-                    firestore.collection("users").doc(auth.currentUser.uid).set({
-                        firstName: firstName,
-                        lastName: lastName,
-                        email: email,
-                        role: role
-                    }).then(function() {
-                        Actions.signupLoader()
-                    })
-                })
+              if (firstName !== "" && lastName!=="" && email!=="" && password!=="")
+              Actions.push(sceneKey="signup_next" , props={firstName: firstName, lastName: lastName, email:email, phone: phone, password: password})
             }}}
           >
-            Signup
+            Next
           </Button>
+          <View style={{height: 20}}></View>
         </ScrollView>
+        </View>
       );
     }
   
     const styles = StyleSheet.create({
       view: {
-        flex:1,
+        
         backgroundColor: '#FFFFFF',
       },
     
