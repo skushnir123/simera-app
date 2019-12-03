@@ -42,7 +42,7 @@ const RouterComponent = () => {
                 </Scene>
                 <Scene activeTintColor={"#16a085"} tabs={true} key="main" >
                     <Scene key="Overview">
-                        <Scene initial hideNavBar key="overview_initial" component={Overview} title="Overview"></Scene>
+                        <Scene initial  key="overview_initial" component={Overview} title="Overview"></Scene>
                         <Scene  key="create_new_team" component={CreateNewTeam} title="Create"></Scene>
                         <Scene  key="join_new_team" component={JoinNewTeam} title="Join"></Scene>
                         <Scene hideNavBar  key="create_new_team_loader" component={CreateNewTeamLoader} title="Create"></Scene>

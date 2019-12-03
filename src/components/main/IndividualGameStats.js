@@ -183,14 +183,14 @@ function IndividualGameStats(props) {
                             usersValue.docs.map(user => {
                                 if (user.id === player) {
                                     return (
-                                        <Chip icon={icon} onPress={() => {
+                                        <Chip style={{marginTop:8}} icon={icon} onPress={() => {
                                             setEditPlayerVisible(false)
                                             var playerStatsTable = {}
                                             teamsValue.data().members.forEach((member, index) => {
                                                 playerStatsTable[member] = zerosSportStats[teamsValue.data().sport]
                                                 if (index == teamsValue.data().members.length-1) {
                                                     Actions.push(sceneKey="edit_individual_stats" , props={stats:numberSportStats[teamsValue.data().sport], trackingAverages: playerStatsTable , tops: zerosSportStatsSecond[teamsValue.data().sport], eventId: props.eventId, userId: user.id, teamId: props.teamId, playerName:(user.data().firstName + " " + user.data().lastName)})
-                                                }
+                                                } 
                                             })
                                             
                                             }}>{user.data().firstName + " " + user.data().lastName}

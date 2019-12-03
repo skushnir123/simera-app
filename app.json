@@ -11,7 +11,11 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./icons/app_logo.png",
+    "icon": "./icons/simera_icon.png",
+    "ios": {
+      "bundleIdentifier": "com.samkushnir.simera",
+      "supportsTablet": true
+    },
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -22,9 +26,6 @@
     },
     "assetBundlePatterns": [
       "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    }
+    ]
   }
 }

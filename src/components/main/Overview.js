@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {View} from 'react-native'
-import { StyleSheet, Screen, ScrollView} from 'react-native';
+import { StyleSheet, Screen, ScrollView, StatusBar} from 'react-native';
 import { Button ,Text, Headline, Subheading,ActivityIndicator, Portal, Dialog, Title, Paragraph, Divider} from 'react-native-paper';
 import { withTheme } from 'react-native-paper';
 import { Actions } from 'react-native-router-flux';
@@ -38,7 +38,9 @@ function Overview(props) {
       if (value) {
         if (value.data().teams) {
           return (
+
             <View style={{backgroundColor:'#FFFFFF', flex:1}}>
+              <StatusBar backgroundColor="blue" barStyle="dark-content" />
             <ScrollView contentContainerStyle={styles.view}>
               <Portal>
                 <Dialog

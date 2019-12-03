@@ -18,13 +18,13 @@ function OverviewCard(props) {
           style={{
             width: 400,
             backgroundColor: '#FFFFFF',
-            paddingTop:40,
+            paddingTop:6,
             alignItems: 'center',
             borderColor: '#2c3e50',
             borderWidth: 13,
             borderTopColor: '#FFFFFF'
           }}>
-            <Headline style={{padding: 5, marginRight: 10, marginLeft:10}}>{props.headlineText}</Headline>
+            <Headline style={{padding: 5, marginRight: 10, marginLeft:10, fontSize: 20}}>{props.headlineText}</Headline>
             <Animation
             ref={animation => {
             this.animation = animation;
