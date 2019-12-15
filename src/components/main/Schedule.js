@@ -114,8 +114,11 @@ function Schedule(props) {
                                 if (event.data().teamId===value.data().teams[0]) {
                                   if (event.data().eventType===1) {
                                     const dateString = new Date(event.data().date.seconds*1000).toLocaleDateString()
+                                    const dayOfWeek = new Date(event.data().date.seconds*1000).getDay()
+                                    const dayOfMonth = new Date(event.data().date.seconds*1000).getDate()
+                                    const time = new Date(event.data().date.seconds*1000).toLocaleTimeString()
                                   return (
-                                    <EventCard key={event.id} gameTime={event.data().date.seconds*1000} headlineText={event.data().opponent} score={event.data().score} scoreEntered={event.data().score===[0,0] ? true : false} subheading={event.data().homeAway===1? ("" + dateString) : "" + dateString} action={() => {
+                                    <EventCard key={event.id} gameTime={event.data().date.seconds*1000} time={time} headlineText={event.data().homeAway==2 ? ("at " + event.data().opponent) : "vs. " + event.data().opponent} dayOfMonth={dayOfMonth} dayOfWeek={dayOfWeek}  score={event.data().score} scoreEntered={event.data().score===[0,0] ? true : false} subheading={event.data().homeAway===1? ("" + dateString) : "" + dateString} action={() => {
                                       setPageLoading(true)
                                       var teamRef = firestore.collection("teams").doc(value.data().teams[0]);
                                       var memberNames = []
@@ -135,8 +138,11 @@ function Schedule(props) {
                                     }} buttonText="Details/Availability"></EventCard>
                                   )
                                   } else if (event.data().eventType===2) {
+                                    const dayOfWeek = new Date(event.data().date.seconds*1000).getDay()
+                                    const dayOfMonth = new Date(event.data().date.seconds*1000).getDate()
+                                    const time = new Date(event.data().date.seconds*1000).toLocaleTimeString()
                                     return (
-                                      <EventCard key={event.id} headlineText={"Practice"} subheading={new Date(event.data().date.seconds*1000).toLocaleDateString()} action={() => {
+                                      <EventCard key={event.id} headlineText={"Practice"} time={time} dayOfMonth={dayOfMonth} dayOfWeek={dayOfWeek} subheading={new Date(event.data().date.seconds*1000).toLocaleDateString()} action={() => {
                                         setPageLoading(true) 
                                         var teamRef = firestore.collection("teams").doc(value.data().teams[0]);
                                         var memberNames = []
@@ -156,8 +162,11 @@ function Schedule(props) {
                                       }} buttonText="Details/Availability"></EventCard>
                                     )
                                   } else {
+                                    const dayOfWeek = new Date(event.data().date.seconds*1000).getDay()
+                                    const dayOfMonth = new Date(event.data().date.seconds*1000).getDate()
+                                    const time = new Date(event.data().date.seconds*1000).toLocaleTimeString()
                                     return (
-                                      <EventCard key={event.id} headlineText={event.data().eventTitle} subheading={new Date(event.data().date.seconds*1000).toLocaleDateString()} action={() => {
+                                      <EventCard key={event.id} headlineText={event.data().eventTitle} time={time} dayOfMonth={dayOfMonth} dayOfWeek={dayOfWeek} subheading={new Date(event.data().date.seconds*1000).toLocaleDateString()} action={() => {
                                         setPageLoading(true) 
                                         var teamRef = firestore.collection("teams").doc(value.data().teams[0]);
                                         var memberNames = []

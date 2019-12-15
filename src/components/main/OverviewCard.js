@@ -24,7 +24,7 @@ function OverviewCard(props) {
             borderWidth: 13,
             borderTopColor: '#FFFFFF'
           }}>
-            <Headline style={{padding: 5, marginRight: 10, marginLeft:10, fontSize: 20}}>{props.headlineText}</Headline>
+            <Title style={{padding: 5, marginRight: 10, marginLeft:10, fontSize: 16}}>{props.headlineText}</Title>
             <Animation
             ref={animation => {
             this.animation = animation;
@@ -40,7 +40,7 @@ function OverviewCard(props) {
             loop={true}
             source={animationSource}
         />
-        <Subheading style={{paddingLeft: 10, marginTop: -10, paddingBottom:15}}>{props.subheading}</Subheading>
+        <Subheading style={{paddingLeft: 10, marginTop: -10, paddingBottom:15, fontSize: 14}}>{props.subheading}</Subheading>
         <Button contentStyle={{fontSize:30}} uppercase={false} mode="outlined" onPress={action}>
             {props.buttonText}
         </Button>

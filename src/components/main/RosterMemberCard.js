@@ -19,8 +19,8 @@ function RosterMemberCard(props) {
             borderWidth: 5,
             borderTopColor: '#FFFFFF'
           }}>
-        <Subheading style={{paddingBottom:15, paddingLeft:20}}>{props.subheading}</Subheading>
-        <Button style={{fontSize:10, marginLeft:20}} uppercase={false} mode="outlined" onPress={action}>
+        <Title style={{paddingBottom:15, paddingLeft:20, fontSize:15}}>{props.subheading}</Title>
+        <Button style={{fontSize:8, marginLeft:20}} uppercase={false} mode="outlined" onPress={action}>
             Contact
         </Button>
         <View style={{height:10}}></View>

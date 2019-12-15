@@ -10,7 +10,7 @@ import statsAnim from '../../../assets/3046-me-at-office.json';
 import Animation from 'lottie-react-native';
 import {auth, firestore} from '../../../config/config'
 import { useCollection } from 'react-firebase-hooks/firestore';
-
+import StatCard from './StatCard'
 
 
 
@@ -73,83 +73,55 @@ function Stats(props) {
         })
 
     
-    const [teamsValue, teamsLoading, teamsError] = useCollection( 
-        firestore.collection('teams'),
+    const [eventsValue, eventsLoading, eventsError] = useCollection( 
+        firestore.collection('events').orderBy("date"),
         {
             snapshotListenOptions: { includeMetadataChanges: true },
         })
 
+    
 
 
-    if (loading  || teamsLoading) {
+
+    if (loading  || eventsLoading) {
         return (  
             <View style={{backgroundColor: "#FFFFFF", justifyContent: "center", flex:1}}>
               <ActivityIndicator animating={true} color={colors.primary} />
-            </View>
+            </View>  
           )
     }
     
     if (value.data().teams) {
         return (
             <View style={{backgroundColor:'#FFFFFF', flex:1}}>
-                {
-                        teamsValue.docs.map(team => {
+                 <ScrollView contentContainerStyle={styles.view}>
+                    {
+                        eventsValue.docs.map(event =>
                             {
-                                if (team.id === value.data().teams[0]) {
+                                console.log(event.teamId)
+                                if (event.data().teamId===value.data().teams[0]) {
                                     
-                                    if (team.data().tops) { 
+                                    if (event.data().eventType===1) {
+                                        const dateString = new Date(event.data().date.seconds*1000).toLocaleDateString()
+                                        const dayOfWeek = new Date(event.data().date.seconds*1000).getDay()
+                                        const dayOfMonth = new Date(event.data().date.seconds*1000).getDate()
+                                        const time = new Date(event.data().date.seconds*1000).toLocaleTimeString()
                                         return (
-                                            <ScrollView contentContainerStyle={{marginTop:0}}>
-                                                <Button style={{marginTop:0}} uppercase={false} mode="contained" onPress={() => {
-                                                  Actions.push(sceneKey="stats_games" , props={id:value.data().teams[0]})
-                                                  }}>
-                                                  View game by game stats
-                                                </Button>
-                                                <Headline style={{marginLeft: 14, marginTop:40}}>Stat Leaders Per Game</Headline>
-                                                {
-                                                    Object.keys(team.data().tops).map((key, index) => {
-                                                        console.log(index)
-                                                        if (team.data().tops[index][0] == "A") {
-                                                            return (
-                                                                <View>
-                                                                <Title style={{marginLeft: 24, marginTop:10}}>{statEnumToName[team.data().sport][index]}</Title>
-                                                                <Subheading style={{marginLeft: 33, marginTop:8}}>{"No Data Input"}</Subheading>
-                                                                </View>
-                                                            )
-                                                        }
-                                                        return (
-                                                            <View>
-                                                                <Title style={{marginLeft: 24, marginTop:10}}>{statEnumToName[team.data().sport][index]}</Title>
-                                                                <Subheading style={{marginLeft: 33, marginTop:8}}>{team.data().tops[index][0] + " - " + team.data().tops[index][1]}</Subheading>
-                                                            </View>
-                                                        )
-                                                    })
-                                                }
-                                                
-                                            </ScrollView>
-                                            
-                                        )
-                                    } else {
-                                        return (
-                                            <View style={{backgroundColor:'#FFFFFF', flex:1}}>
-                                            <ScrollView contentContainerStyle={{marginTop:0}}>
-                                            <ScrollView contentContainerStyle={{alignItems: 'center', marginTop:10}}>
-                                                <Headline>No Stats Added</Headline>
-                                    
-                                                    <Button style={{marginTop:13}} uppercase={false} mode="outlined" onPress={() => { 
-                                                        Actions.push(sceneKey="stats_games" , props={id:value.data().teams[0]})
-                                                        }}>
-                                                        Add Stats
-                                                    </Button>
-                                                            </ScrollView>
-                                            </ScrollView>
-                                            </View>
-                                        )
+                                            <StatCard key={event.id} gameTime={event.data().date.seconds*1000} time={time} headlineText={"at " + event.data().opponent} dayOfMonth={dayOfMonth} dayOfWeek={dayOfWeek}  score={event.data().score} scoreEntered={event.data().score===[0,0] ? true : false} subheading={event.data().homeAway===1? ("" + dateString) : "" + dateString} action={() => {
+                                                console.log(event.id)
+                                                console.log(event.teamId)
+                                                Actions.push(sceneKey="individual_stats" , props={eventId: event.id, teamId: event.data().teamId})
+                                            }} buttonText="Details/Availability"></StatCard>
+                                          )
+
                                     }
                                 }
                             }
-                        })
-                }
+                        )
+                    }
+
+
+                 </ScrollView>
             </View>
         )
 
@@ -169,14 +141,22 @@ function Stats(props) {
         )
     }
 
-
-
-
-
-
-
-
 }
+
+
+const styles = StyleSheet.create({
+    view: {
+      backgroundColor: "#ecf0f1",
+      alignItems: 'center',
+      marginTop: 10
+    },
+    fab: {
+      position: 'absolute',
+      margin: 16,
+      right: 0,
+      bottom: 0
+    }
+  });
 
 
 

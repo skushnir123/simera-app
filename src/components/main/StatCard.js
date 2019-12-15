@@ -11,7 +11,7 @@ import Animation from 'lottie-react-native';
 import TimeWithoutSeconds from '../reusable/TimeWIthoutSeconds'
 
 
-function OverviewCard(props) {
+function StatCard(props) {
     const {fonts} = props.theme
     const animationSource = props.animationSource
     const action = props.action
@@ -27,7 +27,9 @@ function OverviewCard(props) {
     }
 
 
-    
+    {
+      console.log("sdfs")
+    }
 
     return (
         <View 
@@ -46,29 +48,15 @@ function OverviewCard(props) {
             <Headline style={{fontSize:17,  color: "#2c3e50", marginLeft:-0, marginTop:-3, alignSelf:'center'}}>{dayOfWeekNumberToWord[props.dayOfWeek]}</Headline>
             </View>
             <View>
-            <Title style={{fontSize:17,  color: "#2c3e50", marginLeft:10, marginTop:-3, alignSelf:'flex-start'}}>{TimeWithoutSeconds(props.time) + " " + props.headlineText}</Title>
+        <Title style={{fontSize:17,  color: "#2c3e50", marginLeft:10, marginTop:-3, alignSelf:'flex-start'}}>{
+          props.score[0] > props.score[1] ? (props.score[0]+ " - " + props.score[1] + " W") : (props.score[0]+ " - " + props.score[1] + " L")
+        }</Title>
             <Button contentStyle={{fontSize:17, marginLeft:-5,alignSelf:'flex-start', marginTop:-3}} uppercase={false} mode="text" onPress={action}>
-              {console.log(props.gameTime)}
-              {
-                props.score ?
-                (
-                  new Date() > props.gameTime ? 
-                  (
-                    new Date() > props.gameTime && (new Date() < (props.gameTime + (3600*3*1000))) ?
-                    ("Enter Score ⁠— Game in progress"):
-                    (JSON.stringify(props.score) === JSON.stringify([0,0])) ?
-                    "Enter Score" :
-                    props.score[0] > props.score[1] ?
-                    (props.score[0]+ " - " + props.score[1] + " W, Edit Score"):
-                    (props.score[0]+ " - " + props.score[1] + " L, Edit Score")
-                  ) :
-                  "View details/availability"
-                ) :
-                "View details/availability"
-              }
+              View/Edit Stats
             </Button>
             </View>
             </View>
+            
             <View style={{height:10}} ></View> 
       </View>
     )
@@ -81,4 +69,4 @@ const styles = StyleSheet.create({
   });
 
 
-export default withTheme(OverviewCard);
+export default withTheme(StatCard);
