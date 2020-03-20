@@ -16,7 +16,7 @@ function OverviewCard(props) {
     return (
         <View 
           style={{
-            width: 400,
+            width: 440,
             backgroundColor: '#FFFFFF',
             paddingTop:6,
             alignItems: 'center',
@@ -24,7 +24,7 @@ function OverviewCard(props) {
             borderWidth: 13,
             borderTopColor: '#FFFFFF'
           }}>
-            <Title style={{padding: 5, marginRight: 10, marginLeft:10, fontSize: 16}}>{props.headlineText}</Title>
+            <Title allowFontScaling={false} style={{padding: 5, marginRight: 10, marginLeft:10, fontSize: 16}}>{props.headlineText}</Title>
             <Animation
             ref={animation => {
             this.animation = animation;
@@ -40,8 +40,8 @@ function OverviewCard(props) {
             loop={true}
             source={animationSource}
         />
-        <Subheading style={{paddingLeft: 10, marginTop: -10, paddingBottom:15, fontSize: 14}}>{props.subheading}</Subheading>
-        <Button contentStyle={{fontSize:30}} uppercase={false} mode="outlined" onPress={action}>
+        <Subheading allowFontScaling={false} style={{paddingLeft: 10, marginTop: -10, paddingBottom:15, fontSize: 14}}>{props.subheading}</Subheading>
+        <Button allowFontScaling={false} contentStyle={{fontSize:30}} uppercase={false} mode="outlined" onPress={action}>
             {props.buttonText}
         </Button>
         <View style={{height:30}}></View>

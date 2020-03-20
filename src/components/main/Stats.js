@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     view: {
       backgroundColor: "#ecf0f1",
       alignItems: 'center',
-      marginTop: 10
+      marginTop: 5
     },
     fab: {
       position: 'absolute',

@@ -46,14 +46,14 @@ function Overview(props) {
                 <Dialog
                   visible={open}
                   onDismiss={() => setOpen(false)}>
-                  <Dialog.Title>Add new team</Dialog.Title>
+                  <Dialog.Title >Add new team</Dialog.Title>
                   <Dialog.Content>
-                    <Button contentStyle={{fontSize:30}} uppercase={false} mode="outlined" onPress={() => {setOpen(false) 
+                    <Button  contentStyle={{fontSize:30}} uppercase={false} mode="outlined" onPress={() => {setOpen(false) 
                       Actions.join_new_team()
                       }}>
                       Join a new team
                     </Button>
-                    <Button style={{marginTop:13}} contentStyle={{fontSize:30}} uppercase={false} mode="outlined" onPress={() => {setOpen(false)
+                    <Button  style={{marginTop:13}} contentStyle={{fontSize:30}} uppercase={false} mode="outlined" onPress={() => {setOpen(false)
                        Actions.create_new_team()}}>
                       Create a new team
                     </Button>

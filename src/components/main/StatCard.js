@@ -34,24 +34,27 @@ function StatCard(props) {
     return (
         <View 
           style={{
-            width: 400,
+            width: 407,
             backgroundColor: '#FFFFFF', 
-            paddingTop:0,
+            paddingTop:5,
             alignItems: 'flex-start',
             borderColor: '#2c3e50',
             borderWidth: 5,
-            borderTopColor: '#FFFFFF'
+            borderTopColor: '#FFFFFF',
+            borderLeftColor: '#FFFFFF',
+            borderRightColor: '#FFFFFF'
+
           }}>
             <View style={{flexDirection:'row'}}>
             <View style={{height:68, width:70, backgroundColor:  "#ecf0f1", marginLeft:20, borderRadius:10}}>
             <Title style={{fontSize:20,  color: "#2c3e50", marginLeft:-0, alignSelf:'center', fontWeight: 'bold'}}>{props.dayOfMonth}</Title>
-            <Headline style={{fontSize:17,  color: "#2c3e50", marginLeft:-0, marginTop:-3, alignSelf:'center'}}>{dayOfWeekNumberToWord[props.dayOfWeek]}</Headline>
+            <Headline allowFontScaling={false} style={{fontSize:17,  color: "#2c3e50", marginLeft:-0, marginTop:-3, alignSelf:'center'}}>{dayOfWeekNumberToWord[props.dayOfWeek]}</Headline>
             </View>
             <View>
-        <Title style={{fontSize:17,  color: "#2c3e50", marginLeft:10, marginTop:-3, alignSelf:'flex-start'}}>{
+        <Title allowFontScaling={false} style={{fontSize:17,  color: "#2c3e50", marginLeft:10, marginTop:-3, alignSelf:'flex-start'}}>{
           props.score[0] > props.score[1] ? (props.score[0]+ " - " + props.score[1] + " W") : (props.score[0]+ " - " + props.score[1] + " L")
         }</Title>
-            <Button contentStyle={{fontSize:17, marginLeft:-5,alignSelf:'flex-start', marginTop:-3}} uppercase={false} mode="text" onPress={action}>
+            <Button allowFontScaling={false} contentStyle={{fontSize:17, marginLeft:-5,alignSelf:'flex-start', marginTop:-3}} uppercase={false} mode="text" onPress={action}>
               View/Edit Stats
             </Button>
             </View>

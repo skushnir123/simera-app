@@ -11,16 +11,18 @@ function RosterMemberCard(props) {
     return (
         <View 
           style={{
-            width: 400,
+            width: 407,
             backgroundColor: '#FFFFFF',
             paddingTop:10,
             alignItems: 'flex-start',
             borderColor: '#2c3e50',
             borderWidth: 5,
-            borderTopColor: '#FFFFFF'
+            borderTopColor: '#FFFFFF',
+            borderLeftColor: '#FFFFFF',
+            borderRightColor: '#FFFFFF'
           }}>
-        <Title style={{paddingBottom:15, paddingLeft:20, fontSize:15}}>{props.subheading}</Title>
-        <Button style={{fontSize:8, marginLeft:20}} uppercase={false} mode="outlined" onPress={action}>
+        <Title allowFontScaling={false} style={{paddingBottom:15, paddingLeft:20, fontSize:15}}>{props.subheading}</Title>
+        <Button allowFontScaling={false} style={{fontSize:8, marginLeft:20}} uppercase={false} mode="outlined" onPress={action}>
             Contact
         </Button>
         <View style={{height:10}}></View>
